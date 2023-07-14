@@ -14,12 +14,14 @@
         <canvas id="canvas"></canvas>
       </section>
       <section class="controler">
-        <input type="color" id="color">
-        <input type="radio" id="draw" name="mode" checked />
+        <input type="color" id="color" title="色の変更">
+        <input type="radio" id="draw" name="mode" checked title="ペン"/>
         <label for="draw">ペン</label>
-        <input type="radio" id="erase" name="mode" />
+        <input type="radio" id="erase" name="mode" title="消しゴム"/>
         <label for="erase">消しゴム</label>
-        <input type="button" id="clear" value="クリア">
+        <input type="button" id="clear" value="クリア" title="クリア">
+        <input type="button" id="download" value="ダウンロード" title="ダウンロード">
+        <!-- <input type="range" min="1" max="30" value="5" id="width-range" title="太さ：1px"> -->
       </section>
     </main>
   </body>

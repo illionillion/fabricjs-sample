@@ -6,12 +6,14 @@
     screen: undefined,
     color: "",
     mode: "draw",
+    width: 5,
   };
 
   const main = () => {
     const canvas = new fabric.Canvas("canvas");
     const screen = document.querySelector(".screen");
     const colorPicker = document.getElementById("color");
+    const widthRange = document.getElementById("width-range");
     state.color = colorPicker.value;
     state.canvas = canvas;
     state.screen = screen;
@@ -21,7 +23,9 @@
     document.getElementById("draw").addEventListener("click", draw);
     document.getElementById("erase").addEventListener("click", erase);
     document.getElementById("clear").addEventListener("click", clear);
+    document.getElementById("download").addEventListener("click", download);
     colorPicker.addEventListener("input", colorChange);
+    // widthRange.addEventListener("input", widthChange);
 
     draw(canvas);
   };
@@ -30,7 +34,7 @@
     const canvas = state.canvas;
     state.mode = "draw";
     canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-    canvas.freeDrawingBrush.width = 5;
+    canvas.freeDrawingBrush.width = state.width;
     canvas.freeDrawingBrush.color = state.color;
     canvas.isDrawingMode = true;
   };
@@ -39,7 +43,7 @@
     const canvas = state.canvas;
     state.mode = "erase";
     canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-    canvas.freeDrawingBrush.width = 10;
+    canvas.freeDrawingBrush.width = state.width;
     canvas.freeDrawingBrush.color = "white";
     canvas.isDrawingMode = true;
   };
@@ -62,10 +66,24 @@
     canvas.clear();
   };
 
+  const download = () => {
+    let canvasToDL = document.getElementById("canvas");
+    let link = document.createElement("a");
+    link.href = canvasToDL.toDataURL("image/png");
+    link.download = "drawing.png";
+    link.click();
+  };
+
   const colorChange = (e) => {
     state.color = e.target.value;
     if (state.mode === "draw")
       state.canvas.freeDrawingBrush.color = state.color;
+  };
+
+  const widthChange = (e) => {
+    state.width = e.target.value;
+    state.canvas.freeDrawingBrush.width = state.width;
+    e.target.title = `太さ：${state.width}px`;
   };
 
   window.addEventListener("load", main);
